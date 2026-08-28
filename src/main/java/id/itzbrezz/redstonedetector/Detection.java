@@ -14,21 +14,14 @@ import java.util.UUID;
  */
 public final class Detection {
 
-    private final String id;
-
-    private Location location;
-
-    private String type;
-
-    private long events;
-
-    private long lastActivity;
-
-    private int suspicion;
-
-    private String player;
-
-    private UUID playerUuid;
+    final String id;
+Location location;
+String type;
+long events;
+long lastActivity;
+int suspicion;
+String player;
+UUID playerUuid;
 
     /**
      * Creates a new detection.
