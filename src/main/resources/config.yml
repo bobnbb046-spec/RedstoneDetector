@@ -1,0 +1,280 @@
+# ============================================================
+# RedstoneDetector 2.0.0
+# Professional Monitor-Only Configuration
+# ============================================================
+
+settings:
+
+  # Detector mode.
+  # IMPORTANT: This plugin only monitors redstone activity.
+  # It will NEVER break, disable, remove or limit redstone.
+  mode: MONITOR_ONLY
+
+  # Enable automatic monitoring.
+  enabled: true
+
+  # Maximum amount of alerts stored in memory.
+  max-history: 100
+
+  # Scan safety settings.
+  scan:
+    enabled: true
+
+    # Maximum chunks processed during one scan.
+    max-chunks: 256
+
+    # Maximum blocks inspected per tick.
+    blocks-per-tick: 2500
+
+    # Maximum milliseconds the scanner may use per tick.
+    time-budget-ms: 8
+
+    # Do not load unloaded chunks.
+    load-unloaded-chunks: false
+
+    # Stop scan if server TPS becomes too low.
+    tps-protection:
+      enabled: true
+      minimum-tps: 15.0
+
+# ============================================================
+# Detection
+# ============================================================
+
+detection:
+
+  # Minimum activity required before creating a detection.
+  minimum-score: 50
+
+  # SUS score thresholds.
+  thresholds:
+    low: 50
+    medium: 70
+    high: 85
+    critical: 95
+
+  # Detection types.
+  types:
+
+    redstone-clock:
+      enabled: true
+
+    hopper-clock:
+      enabled: true
+
+    piston-machine:
+      enabled: true
+
+    observer-machine:
+      enabled: true
+
+    dispenser-machine:
+      enabled: true
+
+    dropper-machine:
+      enabled: true
+
+    high-activity:
+      enabled: true
+
+# ============================================================
+# Staff Notifications
+# ============================================================
+
+notifications:
+
+  enabled: true
+
+  # Notify staff when a suspicious location is detected.
+  staff-alert: true
+
+  # Minimum SUS score required for an alert.
+  minimum-alert-score: 70
+
+  # Permission required to receive alerts.
+  permission: redstonedetector.staff
+
+  messages:
+
+    detected: "&8[&bRedstoneDetector&8] &7Suspicious redstone activity detected."
+    location: "&8» &7Location: &f%world% &7(&f%x%&7, &f%y%&7, &f%z%&7)"
+    score: "&8» &7SUS: &f%score%%"
+    type: "&8» &7Type: &f%type%"
+
+# ============================================================
+# GUI
+# ============================================================
+
+gui:
+
+  main:
+    title: "&8RedstoneDetector &7• &bInvestigations"
+    size: 54
+
+  detail:
+    title: "&8Detection &7• &bInvestigation"
+    size: 27
+
+  items:
+
+    detection:
+      material: PAPER
+      name: "&b&lRedstone Detection"
+      lore:
+        - ""
+        - "&7SUS: &f%score%%"
+        - "&7Lokasi: &f%location%"
+        - "&7Player: &f%player%"
+        - ""
+        - "&8Klik untuk melihat detail."
+
+    previous:
+      material: ARROW
+      name: "&ePrevious Page"
+      lore:
+        - "&7Kembali ke halaman sebelumnya."
+
+    next:
+      material: ARROW
+      name: "&eNext Page"
+      lore:
+        - "&7Melihat halaman berikutnya."
+
+    close:
+      material: BARRIER
+      name: "&cClose"
+      lore:
+        - "&7Tutup menu."
+
+    refresh:
+      material: NETHER_STAR
+      name: "&bRefresh"
+      lore:
+        - "&7Perbarui data detection."
+
+# ============================================================
+# Investigation Detail
+# ============================================================
+
+investigation:
+
+  title: "&8&lREDSTONE INVESTIGATION"
+
+  labels:
+
+    sus: "&c&lSUS"
+    location: "&e&lLOKASI"
+    player: "&b&lPLAYER"
+    last-online: "&7&lTERAKHIR ONLINE"
+    play-time: "&a&lPLAY TIME"
+    type: "&d&lTYPE"
+
+  values:
+
+    unknown-player: "&7Unknown"
+    console: "&7Console"
+    never-online: "&7Tidak diketahui"
+
+# ============================================================
+# Messages
+# ============================================================
+
+messages:
+
+  prefix: "&8[&bRedstoneDetector&8] "
+
+  no-permission: "%prefix%&cYou don't have permission to use this command."
+
+  usage: |
+    &8&m----------------------------------------
+    &b&lRedstoneDetector &7• &fCommands
+    &8&m----------------------------------------
+    &f/lag gui &8- &7Open investigation GUI
+    &f/lag scan &8- &7Start a safe redstone scan
+    &f/lag progress &8- &7View scan progress
+    &f/lag history &8- &7View detection history
+    &f/lag reload &8- &7Reload configuration
+    &f/lag info &8- &7Plugin information
+    &8&m----------------------------------------
+
+  scan-started: "%prefix%&bScan started &7using safe monitor mode."
+
+  scan-already-running: "%prefix%&eA scan is already running."
+
+  scan-finished: "%prefix%&aScan completed successfully. &7Found: &f%count% &7detections."
+
+  scan-stopped: "%prefix%&eScan stopped safely."
+
+  scan-protected: "%prefix%&eScan paused because server performance is below the configured safety threshold."
+
+  scan-error: "%prefix%&cThe scan encountered an error and was stopped safely."
+
+  no-detections: "%prefix%&7No suspicious redstone activity was detected."
+
+  gui-empty: "%prefix%&7There are currently no detections to display."
+
+  reloaded: "%prefix%&aConfiguration reloaded successfully."
+
+  unknown-command: "%prefix%&cUnknown subcommand."
+
+  progress: |
+    &8&m----------------------------------------
+    &b&lREDSTONE SCAN
+    &8&m----------------------------------------
+    &7Status: &f%status%
+    &7Progress: &f%progress%%%
+    &7Chunks: &f%processed%&7/&f%total%
+    &7Detections: &f%detections%
+    &8&m----------------------------------------
+
+# ============================================================
+# GUI Appearance
+# ============================================================
+
+appearance:
+
+  use-legacy-colors: true
+
+  filler:
+    enabled: true
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+
+  sounds:
+    enabled: true
+
+    open: BLOCK_CHEST_OPEN
+    click: UI_BUTTON_CLICK
+    close: BLOCK_CHEST_CLOSE
+
+# ============================================================
+# Performance
+# ============================================================
+
+performance:
+
+  # Run calculations asynchronously where safe.
+  async-analysis: true
+
+  # Never perform unsafe Bukkit world operations asynchronously.
+  safe-bukkit-access: true
+
+  # Prevent excessive GUI refreshes.
+  gui-refresh-delay-ms: 500
+
+  # Cache player information.
+  player-cache:
+    enabled: true
+    duration-seconds: 60
+
+# ============================================================
+# Debug
+# ============================================================
+
+debug:
+
+  enabled: false
+
+  log-scan-progress: false
+  log-detections: false
+  log-gui-actions: false
