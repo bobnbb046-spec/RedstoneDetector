@@ -83,4 +83,3 @@ public final class Detection {
         return player;
     }
 }
-
