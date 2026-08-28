@@ -1,0 +1,20 @@
+name: RedstoneDetector
+version: 2.0.0
+main: id.itzbrezz.redstonedetector.RedstoneDetector
+api-version: '1.21'
+
+author: ItzBrezz
+description: Professional monitor-only redstone diagnostics with safe scanning and investigation GUI.
+
+commands:
+  lag:
+    description: RedstoneDetector diagnostics and investigation tools.
+    usage: /lag <gui|scan|progress|history|reload|info>
+    permission: redstonedetector.staff
+    aliases:
+      - redstonelag
+
+permissions:
+  redstonedetector.staff:
+    description: Access RedstoneDetector staff tools.
+    default: op
