@@ -68,6 +68,17 @@ public final class RedstoneDetector extends JavaPlugin
     private final Map<String, Detection> detections =
             new HashMap<>();
 
+    /**
+     * Returns a read-only view of the currently tracked detections.
+     * GUI and command classes can safely inspect this map without
+     * replacing or modifying the detector's internal storage.
+     *
+     * @return read-only detection map
+     */
+    public Map<String, Detection> getDetections() {
+        return java.util.Collections.unmodifiableMap(detections);
+    }
+
     /*
      * Historical detections.
      */
@@ -3277,115 +3288,5 @@ public final class RedstoneDetector extends JavaPlugin
         }
 
         return result;
-    }
-
-    // =========================================================
-    // DETECTION CLASS
-    // =========================================================
-
-    private static final class Detection {
-
-        private final String id;
-
-        private Location location;
-
-        private String type;
-
-        private long events;
-
-        private long lastActivity;
-
-        private int suspicion;
-
-        private String player;
-
-        private Detection(
-                Location location,
-                String type
-        ) {
-
-            this.id =
-                    UUID.randomUUID()
-                            .toString()
-                            .substring(
-                                    0,
-                                    8
-                            );
-
-            this.location =
-                    location == null
-                            ? null
-                            : location.clone();
-
-            this.type =
-                    type == null
-                            ? "REDSTONE ACTIVITY"
-                            : type;
-
-            this.lastActivity =
-                    System.currentTimeMillis();
-        }
-
-        private void calculateScore() {
-
-            int score =
-                    25;
-
-            score +=
-                    (int) Math.min(
-                            55L,
-                            events / 10L
-                    );
-
-            long age =
-                    System.currentTimeMillis()
-                            - lastActivity;
-
-            if (
-                    age < 5_000L
-            ) {
-
-                score += 10;
-            }
-
-            if (
-                    age < 1_000L
-            ) {
-
-                score += 10;
-            }
-
-            suspicion =
-                    Math.max(
-                            0,
-                            Math.min(
-                                    100,
-                                    score
-                            )
-                    );
-        }
-
-        private Detection copy() {
-
-            Detection copy =
-                    new Detection(
-                            location,
-                            type
-                    );
-
-            copy.events =
-                    events;
-
-            copy.lastActivity =
-                    lastActivity;
-
-            copy.suspicion =
-                    suspicion;
-
-            copy.player =
-                    player;
-
-            return copy;
-        }
     }
 }
