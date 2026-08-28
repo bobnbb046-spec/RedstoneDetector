@@ -15,13 +15,13 @@ import java.util.UUID;
 public final class Detection {
 
     final String id;
-Location location;
-String type;
-long events;
-long lastActivity;
-int suspicion;
-String player;
-UUID playerUuid;
+    Location location;
+    String type;
+    long events;
+    long lastActivity;
+    int suspicion;
+    String player;
+    UUID playerUuid;
 
     /**
      * Creates a new detection.
@@ -29,36 +29,25 @@ UUID playerUuid;
      * @param location exact detection location
      * @param type detection type
      */
-    public Detection(
-            Location location,
-            String type
-    ) {
+    public Detection(Location location, String type) {
 
-        this.id =
-                UUID.randomUUID()
-                        .toString()
-                        .replace("-", "")
-                        .substring(0, 8);
+        this.id = UUID.randomUUID()
+                .toString()
+                .replace("-", "")
+                .substring(0, 8);
 
-        this.location =
-                location == null
-                        ? null
-                        : location.clone();
+        this.location = location == null
+                ? null
+                : location.clone();
 
-        this.type =
-                type == null
-                        ? "REDSTONE ACTIVITY"
-                        : type;
+        this.type = type == null
+                ? "REDSTONE ACTIVITY"
+                : type;
 
         this.events = 0L;
-
-        this.lastActivity =
-                System.currentTimeMillis();
-
+        this.lastActivity = System.currentTimeMillis();
         this.suspicion = 0;
-
         this.player = null;
-
         this.playerUuid = null;
     }
 
@@ -69,15 +58,13 @@ UUID playerUuid;
 
         int score = 25;
 
-        score +=
-                (int) Math.min(
-                        55L,
-                        events / 10L
-                );
+        score += (int) Math.min(
+                55L,
+                events / 10L
+        );
 
         long inactive =
-                System.currentTimeMillis()
-                        - lastActivity;
+                System.currentTimeMillis() - lastActivity;
 
         if (inactive < 5_000L) {
             score += 10;
@@ -87,14 +74,13 @@ UUID playerUuid;
             score += 10;
         }
 
-        suspicion =
-                Math.max(
-                        0,
-                        Math.min(
-                                100,
-                                score
-                        )
-                );
+        suspicion = Math.max(
+                0,
+                Math.min(
+                        100,
+                        score
+                )
+        );
     }
 
     /**
@@ -103,25 +89,13 @@ UUID playerUuid;
     public Detection copy() {
 
         Detection copy =
-                new Detection(
-                        location,
-                        type
-                );
+                new Detection(location, type);
 
-        copy.events =
-                events;
-
-        copy.lastActivity =
-                lastActivity;
-
-        copy.suspicion =
-                suspicion;
-
-        copy.player =
-                player;
-
-        copy.playerUuid =
-                playerUuid;
+        copy.events = events;
+        copy.lastActivity = lastActivity;
+        copy.suspicion = suspicion;
+        copy.player = player;
+        copy.playerUuid = playerUuid;
 
         return copy;
     }
@@ -146,14 +120,11 @@ UUID playerUuid;
     /**
      * Updates the detection location.
      */
-    public void setLocation(
-            Location location
-    ) {
+    public void setLocation(Location location) {
 
-        this.location =
-                location == null
-                        ? null
-                        : location.clone();
+        this.location = location == null
+                ? null
+                : location.clone();
     }
 
     /**
@@ -166,14 +137,11 @@ UUID playerUuid;
     /**
      * Updates the detection type.
      */
-    public void setType(
-            String type
-    ) {
+    public void setType(String type) {
 
-        this.type =
-                type == null
-                        ? "REDSTONE ACTIVITY"
-                        : type;
+        this.type = type == null
+                ? "REDSTONE ACTIVITY"
+                : type;
     }
 
     /**
@@ -186,15 +154,12 @@ UUID playerUuid;
     /**
      * Sets the event count.
      */
-    public void setEvents(
-            long events
-    ) {
+    public void setEvents(long events) {
 
-        this.events =
-                Math.max(
-                        0L,
-                        events
-                );
+        this.events = Math.max(
+                0L,
+                events
+        );
     }
 
     /**
@@ -203,7 +168,6 @@ UUID playerUuid;
     public void incrementEvents() {
 
         events++;
-
         touch();
     }
 
@@ -217,12 +181,9 @@ UUID playerUuid;
     /**
      * Sets the last activity timestamp.
      */
-    public void setLastActivity(
-            long lastActivity
-    ) {
+    public void setLastActivity(long lastActivity) {
 
-        this.lastActivity =
-                lastActivity;
+        this.lastActivity = lastActivity;
     }
 
     /**
@@ -244,18 +205,15 @@ UUID playerUuid;
     /**
      * Sets suspicion percentage.
      */
-    public void setSuspicion(
-            int suspicion
-    ) {
+    public void setSuspicion(int suspicion) {
 
-        this.suspicion =
-                Math.max(
-                        0,
-                        Math.min(
-                                100,
-                                suspicion
-                        )
-                );
+        this.suspicion = Math.max(
+                0,
+                Math.min(
+                        100,
+                        suspicion
+                )
+        );
     }
 
     /**
@@ -268,18 +226,13 @@ UUID playerUuid;
     /**
      * Sets associated player name.
      */
-    public void setPlayer(
-            String player
-    ) {
+    public void setPlayer(String player) {
 
-        this.player =
-                player;
+        this.player = player;
     }
 
     /**
      * Returns associated player UUID.
-     *
-     * Required by LagGui.
      */
     public UUID getPlayerUuid() {
         return playerUuid;
@@ -288,12 +241,9 @@ UUID playerUuid;
     /**
      * Sets associated player UUID.
      */
-    public void setPlayerUuid(
-            UUID playerUuid
-    ) {
+    public void setPlayerUuid(UUID playerUuid) {
 
-        this.playerUuid =
-                playerUuid;
+        this.playerUuid = playerUuid;
     }
 
     /**
@@ -368,4 +318,4 @@ UUID playerUuid;
                 + playerUuid
                 + '}';
     }
-            }
+    }
